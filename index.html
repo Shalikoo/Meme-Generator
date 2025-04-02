@@ -30,7 +30,17 @@
 
     <section class="editor-section hidden">
         <button onclick="onBackToGallery()">← Back to Gallery</button>
-        <canvas id="meme-canvas"></canvas>
+        <canvas id="meme-canvas"
+
+          onmousedown="onDown(event)"  
+          onmouseup="onUp(event)" 
+          onmousemove="onMove(event)"
+
+          ontouchstart="onDown(event)"
+          ontouchend="onUp(event)"
+          ontouchmove="onMove(event)">
+      </canvas>
+
         <input
           type="text"
           id="txt-line"
@@ -75,19 +85,6 @@
       </section>
       
   </main>
-  
-  <div id="screen-log" style="
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  background: rgba(0,0,0,0.8);
-  color: #0f0;
-  padding: 10px;
-  font-family: monospace;
-  font-size: 14px;
-  z-index: 9999;
-  border-radius: 8px;">
-</div>
 
   <script src="js/main.js"></script>
 
