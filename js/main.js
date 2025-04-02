@@ -170,13 +170,24 @@ function drawLineBox(line) {
     const metrics = gCtx.measureText(line.txt)
     const width = metrics.width
     const height = line.size
-
+  
+    let xStart
+  
+    if (line.align === 'left') {
+      xStart = line.pos.x
+    } else if (line.align === 'right') {
+      xStart = line.pos.x - width
+    } else {
+      xStart = line.pos.x - width / 2
+    }
+  
     gCtx.beginPath()
-    gCtx.rect(line.pos.x - width / 2 - 10, line.pos.y - height, width + 20, height + 10)
+    gCtx.rect(xStart - 10, line.pos.y - height, width + 20, height + 10)
     gCtx.strokeStyle = 'yellow'
     gCtx.lineWidth = 2
     gCtx.stroke()
-}
+  }
+  
 
 function getEvPos(ev) {
     const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
