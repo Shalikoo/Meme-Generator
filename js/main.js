@@ -239,7 +239,7 @@ function onUp(ev) {
 }
 
 function onMove(ev) {
-    log(`onMove: ${ev.type}`)
+    log(`onMove: dx=${dx} dy=${dy} | new x=${line.pos.x} y=${line.pos.y}`)
     if(!gIsDragging) return
 
     const pos = getEvPos(ev)
