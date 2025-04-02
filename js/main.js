@@ -41,8 +41,8 @@ function initCanvas() {
     gElCanvas.addEventListener('mousedown', onDown)
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mouseup', onUp)
-    gElCanvas.addEventListener('touchstart', onDown)
-    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown, { passive: false })
+    gElCanvas.addEventListener('touchmove', onMove, { passive: false })
     gElCanvas.addEventListener('touchend', onUp)
 
 }
