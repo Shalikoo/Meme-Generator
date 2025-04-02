@@ -98,7 +98,7 @@ function renderMeme() {
         gCtx.font = `${safeFontSize}px Impact`
         gCtx.fillStyle = line.color
         gCtx.strokeStyle = 'black'
-        gCtx.textAlign = 'center'
+        gCtx.textAlign = line.align
         gCtx.lineWidth = 2
         gCtx.fillText(line.txt, line.pos.x, line.pos.y)
         gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
@@ -142,6 +142,18 @@ function onSwitchLine() {
     gMeme.selectedLineIdx = (gMeme.selectedLineIdx + 1) % gMeme.lines.length
     renderMeme()
 }
+
+function onSetAlign(align) {
+    const line = gMeme.lines[gMeme.selectedLineIdx]
+    line.align = align
+  
+    if (align === 'left') line.pos.x = 20
+    else if (align === 'right') line.pos.x = gElCanvas.width - 20
+    else line.pos.x = gElCanvas.width / 2
+  
+    renderMeme()
+  }
+  
 
 function fitTextToCanvas(txt, fontSize, maxWidth) {
     gCtx.font = `${fontSize}px Impact`
