@@ -232,7 +232,7 @@ function onDown(ev) {
     renderMeme()
 }
 
-function onUp() {
+function onUp(ev) {
     log(`onUp: ${ev.type}`)
     gIsDragging = false
     document.body.style.cursor = 'default'
