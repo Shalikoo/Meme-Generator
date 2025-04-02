@@ -1,5 +1,13 @@
 'use strict'
 
+function log(msg) {
+    console.log(msg)
+    const elLog = document.getElementById('screen-log')
+    if (elLog) {
+      elLog.innerText = msg
+    }
+  }
+  
 
 var gElCanvas
 var gCtx
@@ -210,6 +218,7 @@ function getEvPos(ev) {
   
 
 function onDown(ev) {
+    log(`onDown: ${ev.type}`)
     const pos = getEvPos(ev)
     const clickedLineIdx = gMeme.lines.findIndex((line) => isLineClicked(pos, line))
 
@@ -224,11 +233,13 @@ function onDown(ev) {
 }
 
 function onUp() {
+    log(`onUp: ${ev.type}`)
     gIsDragging = false
     document.body.style.cursor = 'default'
 }
 
 function onMove(ev) {
+    log(`onMove: ${ev.type}`)
     if(!gIsDragging) return
 
     const pos = getEvPos(ev)
@@ -238,7 +249,6 @@ function onMove(ev) {
     const line = gMeme.lines[gMeme.selectedLineIdx]
     line.pos.x += dx
     line.pos.y += dy
-    console.log('moving', ev.type)
 
     gLastPos = pos
     renderMeme()
