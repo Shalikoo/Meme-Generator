@@ -238,6 +238,7 @@ function onMove(ev) {
     const line = gMeme.lines[gMeme.selectedLineIdx]
     line.pos.x += dx
     line.pos.y += dy
+    console.log('moving', ev.type)
 
     gLastPos = pos
     renderMeme()
