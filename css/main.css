@@ -201,3 +201,7 @@ background-color: #0056b3;
 .sticker-btn:hover {
   transform: scale(1.3);
 }
+
+.upload-container{
+  padding-bottom: 20px;
+}

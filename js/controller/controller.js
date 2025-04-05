@@ -243,3 +243,33 @@ function onKeywordClick(keyword) {
   renderKeywordOptions()
 }
 
+function onUserUpload(ev) {
+  const reader = new FileReader()
+
+  reader.onload = function (event) {
+    const imgUrl = event.target.result
+    gCurrImg = new Image()
+    gCurrImg.src = imgUrl
+
+    gCurrImg.onload = () => {
+      resizeCanvasToImage()
+      gMeme.selectedImgId = null
+      gMeme.selectedLineIdx = 0
+      gMeme.lines = [
+        {
+          txt: '',
+          size: 30,
+          color: 'white',
+          align: 'center',
+          pos: { x: gElCanvas.width / 2, y: 50 },
+          isDrag: false
+        }
+      ]
+      showEditor()
+      renderMeme()
+    }
+  }
+
+  const file = ev.target.files[0]
+  if (file) reader.readAsDataURL(file)
+}

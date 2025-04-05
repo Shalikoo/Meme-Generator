@@ -24,7 +24,11 @@
 
   <main>
     <section class="gallery-section">
-      <h1>Choose an image to start</h1>
+      <h1>Choose an image to start or upload</h1>
+      <div class="upload-container">
+        <input type="file" id="img-upload" accept="image/*" onchange="onUserUpload(event)" />
+      </div>
+      
       <div class="filter-container">
         <input
           list="keywords"
