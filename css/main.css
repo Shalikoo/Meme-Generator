@@ -118,4 +118,48 @@ canvas {
   height: auto;
   display: block; */
 }
-  
+
+.btn {
+  padding: 8px 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
+  text-decoration: none;
+}
+
+.btn:hover {
+background-color: #0056b3;
+}
+
+.saved-memes-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  justify-items: center;
+}
+
+.saved-meme-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-width: 300px;
+  width: 100%;
+  transition: transform 0.2s ease;
+}
+
+.saved-meme-card:hover {
+  transform: scale(1.03);
+}
+
+.saved-meme-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

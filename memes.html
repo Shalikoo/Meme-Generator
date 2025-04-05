@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Saved Memes</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body onload="renderSavedMemes()">
+  <header class="main-header">
+    <div class="logo">My Memes</div>
+    <nav class="main-nav">
+      <a href="index.html">← Back to Editor</a>
+    </nav>
+  </header>
+
+  <main class="gallery-section">
+    <h1>Saved Memes</h1>
+    <div class="gallery saved-memes-gallery"></div>
+  </main>
+
+  <script src="js/service/storage-service.js"></script>
+  <script src="js/controller/saved-meme.controller.js"></script>
+  <script src="js/controller/controller.js"></script>
+</body>
+</html>

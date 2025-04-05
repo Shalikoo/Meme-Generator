@@ -16,7 +16,7 @@
     <div class="logo">MemeGen</div>
     <nav class="main-nav">
       <ul>
-        <li><a href="#memes">Memes</a></li>
+        <li><a href="/memes.html">Memes</a></li>
         <li><a href="#about">About</a></li>
       </ul>
     </nav>
@@ -80,14 +80,29 @@
               </button>
             </div>
           </div>
+
+          <section class="file-actions">
+            <a
+              href="#"
+              class="btn"
+              onclick="onDownloadCanvas(this)"
+              >Download Meme</a
+            >
+            <button class="btn" onclick="onSaveMeme()">Save Meme</button>
+          </section>
           
           
       </section>
       
   </main>
 
-  <script src="js/main.js"></script>
-
+  <script src="js/model/model.js"></script>
+  <script src="js/service/canvas-service.js"></script>
+  <script src="js/view/view.js"></script>
+  <script src="js/controller/controller.js"></script>
+  <script src="js/service/util-service.js"></script>
+  <script src="js/service/storage-service.js"></script>
+  <script src="js/main.js"></script>  
   
 </body>
 
