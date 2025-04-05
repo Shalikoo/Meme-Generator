@@ -1,7 +1,7 @@
 function initCanvas() {
   gElCanvas = document.getElementById('meme-canvas')
   gCtx = gElCanvas.getContext('2d')
-  renderGallery()
+
 
   gElCanvas.addEventListener('click', onCanvasClick)
   gElCanvas.addEventListener('mousedown', onDown)
@@ -14,4 +14,8 @@ function initCanvas() {
 
   document.getElementById('txt-line').value = ''
   document.querySelector("input[type='color']").value = '#ffffff'
+
+  renderGallery()
+  renderKeywordOptions()
+  renderStickers()
 }

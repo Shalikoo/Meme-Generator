@@ -75,6 +75,25 @@ function onSwitchLine() {
   renderMeme()
 }
 
+function onAddSticker(sticker) {
+  const canvasCenterX = gElCanvas.width / 2
+  const y = 100 + gMeme.lines.length * 50
+
+  const newLine = {
+    txt: sticker,
+    size: 40,
+    color: 'white',
+    align: 'center',
+    pos: { x: canvasCenterX, y },
+    isDrag: false
+  }
+
+  gMeme.lines.push(newLine)
+  gMeme.selectedLineIdx = gMeme.lines.length - 1
+  renderMeme()
+}
+
+
 function onSetAlign(align) {
   const line = gMeme.lines[gMeme.selectedLineIdx]
   line.align = align
@@ -169,11 +188,12 @@ function onSaveMeme() {
     memeToSave.cloudUrl = uploadedImgUrl
     savedMemes.push(memeToSave)
     saveToStorage(STORAGE_KEY, savedMemes)
+    console.log(memeToSave)
   })
 }
 
 
-function uploadImg(dataUrl) {
+function uploadImg(dataUrl, onSuccess) {
   const formData = new FormData()
   formData.append('file', dataUrl)
   formData.append('upload_preset', UPLOAD_PRESET)
@@ -185,6 +205,10 @@ function uploadImg(dataUrl) {
     body: formData
   })
     .then(res => res.json())
+    .then(res => {
+      console.log('Uploaded to Cloudinary:', res.secure_url)
+      if (onSuccess) onSuccess(res.secure_url)
+    })
     .catch(err => {
       console.error('Upload error:', err)
       alert('Upload failed. Try again.')
@@ -192,8 +216,30 @@ function uploadImg(dataUrl) {
 }
 
 
+
 function onUploadToFB(encodedUrl) {
   const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&t=${encodedUrl}`
   window.open(fbUrl, '_blank')
+}
+
+function onFilterGallery(keyword) {
+  const imgs = getImgs().filter(img =>
+    img.keywords.some(word => word.toLowerCase().includes(keyword.toLowerCase()))
+  )
+  renderGallery(imgs)
+}
+
+
+function onClearFilter() {
+  document.getElementById('filter-input').value = ''
+  renderGallery(gImgs)
+}
+
+function onKeywordClick(keyword) {
+  if (!gKeywordSearchCountMap[keyword]) gKeywordSearchCountMap[keyword] = 1
+  else gKeywordSearchCountMap[keyword]++
+
+  onFilterGallery(keyword)
+  renderKeywordOptions()
 }
 

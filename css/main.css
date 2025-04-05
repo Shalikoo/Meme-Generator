@@ -31,23 +31,24 @@
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  justify-items: center;
 }
 
 .gallery img {
-  width: 100%;
-  aspect-ratio: 1/1;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
-  cursor: pointer;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: transform 0.2s ease;
 }
 
 .gallery img:hover {
   transform: scale(1.05);
 }
+
 
 
 .editor-section {
@@ -114,9 +115,6 @@ display: none;
 
 canvas {
   touch-action: none;
-  /* max-width: 100%;
-  height: auto;
-  display: block; */
 }
 
 .btn {
@@ -155,11 +153,51 @@ background-color: #0056b3;
 }
 
 .saved-meme-card:hover {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 .saved-meme-card img {
-  width: 100%;
-  height: auto;
-  display: block;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.keywords-cloud {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.keywords-cloud span {
+  margin: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.keywords-cloud span:hover {
+  color: #ff6600;
+}
+
+.stickers {
+  margin: 20px 0;
+}
+
+.sticker-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sticker-btn {
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: transform 0.2s;
+}
+
+.sticker-btn:hover {
+  transform: scale(1.3);
 }

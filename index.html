@@ -25,6 +25,21 @@
   <main>
     <section class="gallery-section">
       <h1>Choose an image to start</h1>
+      <div class="filter-container">
+        <input
+          list="keywords"
+          id="filter-input"
+          placeholder="Filter images by keyword"
+          oninput="onFilterGallery(this.value)"
+        />
+        <datalist id="keywords">
+        </datalist>
+        <button class="btn" onclick="onClearFilter()">Clear Filter</button>
+      </div>
+      <div id="keywords-container" class="keywords-cloud"></div>
+
+
+      
       <div class="gallery"></div>
     </section>
 
@@ -65,7 +80,13 @@
               </button>
               <button title="Delete Line" onclick="onDeleteLine()">
                 <i class="fas fa-trash"></i>
-              </button>
+              </button> 
+            </div>
+
+            <div class="stickers">
+              <h4 style="text-align: center;">Add Stickers:</h4>
+              <div class="sticker-list">
+              </div>
             </div>
           
             <div class="align-controls">
