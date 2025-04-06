@@ -18,7 +18,8 @@ function onImgSelect(imgId) {
         color: 'white',
         align: 'center',
         pos: { x: gElCanvas.width / 2, y: 50 },
-        isDrag: false
+        isDrag: false,
+        rotate: 0
       }
     ]
     showEditor()
@@ -59,7 +60,8 @@ function onAddLine() {
     color: 'white',
     align: 'center',
     pos: { x: canvasCenterX, y },
-    isDrag: false
+    isDrag: false,
+    rotate: 0
   }
 
   gMeme.lines.push(newLine)
@@ -75,6 +77,13 @@ function onSwitchLine() {
   renderMeme()
 }
 
+function onRotateLine(diff) {
+  const line = gMeme.lines[gMeme.selectedLineIdx]
+  line.rotate = (line.rotate || 0) + diff
+  renderMeme()
+}
+
+
 function onAddSticker(sticker) {
   const canvasCenterX = gElCanvas.width / 2
   const y = 100 + gMeme.lines.length * 50
@@ -85,7 +94,8 @@ function onAddSticker(sticker) {
     color: 'white',
     align: 'center',
     pos: { x: canvasCenterX, y },
-    isDrag: false
+    isDrag: false,
+    rotate: 0
   }
 
   gMeme.lines.push(newLine)
@@ -112,7 +122,8 @@ function onDeleteLine() {
       color: 'white',
       align: 'center',
       pos: { x: gElCanvas.width / 2, y: 50 },
-      isDrag: false
+      isDrag: false,
+      rotate: 0
     })
     gMeme.selectedLineIdx = 0
   } else {
@@ -173,24 +184,25 @@ function onDownloadCanvas(ev) {
 }
 
 function onSaveMeme() {
-  const dataUrl = gElCanvas.toDataURL()
   const savedMemes = loadFromStorage(STORAGE_KEY) || []
 
   const memeToSave = {
     id: makeId(),
-    imgUrl: dataUrl,
+    imgUrl: gCurrImg.src,
+    previewUrl: gElCanvas.toDataURL(),
     createdAt: Date.now(),
     meme: structuredClone(gMeme),
     cloudUrl: null
   }
 
-  uploadImg(dataUrl, (uploadedImgUrl) => {
+  uploadImg(memeToSave.previewUrl, (uploadedImgUrl) => {
     memeToSave.cloudUrl = uploadedImgUrl
     savedMemes.push(memeToSave)
     saveToStorage(STORAGE_KEY, savedMemes)
-    console.log(memeToSave)
+    console.log('Saved meme with preview ✅', memeToSave)
   })
 }
+
 
 
 function uploadImg(dataUrl, onSuccess) {
@@ -262,7 +274,8 @@ function onUserUpload(ev) {
           color: 'white',
           align: 'center',
           pos: { x: gElCanvas.width / 2, y: 50 },
-          isDrag: false
+          isDrag: false,
+          rotate: 0
         }
       ]
       showEditor()

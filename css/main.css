@@ -180,7 +180,9 @@ background-color: #0056b3;
 }
 
 .stickers {
-  margin: 20px 0;
+  margin: 0;
+  padding: 0;
+  padding-top: 2px;
 }
 
 .sticker-list {

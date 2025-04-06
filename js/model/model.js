@@ -10,7 +10,8 @@ var gMeme = {
       color: 'white',
       align: 'center',
       pos: { x: 100, y: 50 },
-      isDrag: false
+      isDrag: false,
+      rotate: 0
     }
   ]
 }

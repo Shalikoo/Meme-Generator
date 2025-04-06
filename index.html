@@ -11,6 +11,7 @@
 />
 
 </head>
+
 <body onload="initCanvas()">
   <header class="main-header">
     <div class="logo">MemeGen</div>
@@ -76,6 +77,14 @@
               <button title="Decrease Font" onclick="onChangeFontSize(-2)">
                 <i class="fas fa-minus"></i>
               </button>
+              <div class="rotate-controls">
+                <button title="Rotate Left" onclick="onRotateLine(-5)">
+                  <i class="fas fa-undo"></i>
+                </button>
+                <button title="Rotate Right" onclick="onRotateLine(5)">
+                  <i class="fas fa-redo"></i>
+                </button>
+              </div>              
               <button title="Add Line" onclick="onAddLine()">
                 <i class="fas fa-plus-square"></i>
               </button>
