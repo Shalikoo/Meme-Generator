@@ -51,8 +51,12 @@ function renderKeywordsCloud() {
 }
 
 function showEditor() {
-  document.querySelector('.gallery-section').classList.add('hidden')
-  document.querySelector('.editor-section').classList.remove('hidden')
+  const isSavedPage = !!document.querySelector('.editor-saved')
+  const elEditor = document.querySelector(isSavedPage ? '.editor-saved' : '.editor-section')
+  const elGallery = document.querySelector('.gallery-section')
+
+  if (elGallery) elGallery.classList.add('hidden')
+  if (elEditor) elEditor.classList.remove('hidden')
 }
 
 function renderStickers() {

@@ -53,43 +53,50 @@ function getImgs() {
 
 
 function getEvPos(ev) {
-  const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
-  let pos
-  if (TOUCH_EVS.includes(ev.type)) {
-    ev.preventDefault()
-    const touch = ev.changedTouches[0]
-    const rect = gElCanvas.getBoundingClientRect()
+  let pos = { x: ev.offsetX, y: ev.offsetY }
+
+  if (ev.type.startsWith('touch')) {
+    ev = ev.changedTouches[0]
+    const rect = ev.target.getBoundingClientRect()
     pos = {
-      x: touch.clientX - rect.left,
-      y: touch.clientY - rect.top,
-    }
-  } else {
-    pos = {
-      x: ev.offsetX,
-      y: ev.offsetY,
+      x: ev.clientX - rect.left,
+      y: ev.clientY - rect.top
     }
   }
+
   return pos
 }
+
 
 function getLineClickedIdx(pos) {
   for (let i = 0; i < gMeme.lines.length; i++) {
     const line = gMeme.lines[i]
-    if (!line.pos || !line.txt) continue
-    gCtx.font = `${line.size}px Impact`
-    gCtx.textAlign = 'center'
-    const textWidth = gCtx.measureText(line.txt).width
-    const textHeight = line.size + 10
-    const xStart = line.pos.x - textWidth / 2
-    const xEnd = line.pos.x + textWidth / 2
-    const yStart = line.pos.y - textHeight / 2
-    const yEnd = line.pos.y + textHeight / 2
-    if (pos.x >= xStart && pos.x <= xEnd && pos.y >= yStart && pos.y <= yEnd) {
+    const metrics = gCtx.measureText(line.txt)
+
+    const height = line.size
+    const width = metrics.width
+
+    let xStart
+    if (line.align === 'left') xStart = line.pos.x
+    else if (line.align === 'center') xStart = line.pos.x - width / 2
+    else if (line.align === 'right') xStart = line.pos.x - width
+
+    const yStart = line.pos.y - height / 2
+    const xEnd = xStart + width
+    const yEnd = yStart + height
+
+    if (
+      pos.x >= xStart &&
+      pos.x <= xEnd &&
+      pos.y >= yStart &&
+      pos.y <= yEnd
+    ) {
       return i
     }
   }
   return -1
 }
+
 
 function fitTextToCanvas(txt, fontSize, maxWidth) {
   gCtx.font = `${fontSize}px Impact`

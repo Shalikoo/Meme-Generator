@@ -10,7 +10,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 />
 </head>
-<body onload="renderSavedMemes()">
+<body onload="renderSavedMemes(); initSavedCanvas()">
   <header class="main-header">
     <div class="logo">My Memes</div>
     <nav class="main-nav">
@@ -21,86 +21,55 @@
   <main class="gallery-section">
     <h1>Saved Memes</h1>
     <div class="gallery saved-memes-gallery"></div>
-
-    <section class="editor-section hidden">
-      <button onclick="onBackToGallery()">← Back to Gallery</button>
-      <canvas id="meme-canvas" 
-        style="width: 100%; height: auto;"
-        onmousedown="onDown(event)"  
-        onmouseup="onUp(event)" 
-        onmousemove="onMove(event)"
-
-        ontouchstart="onDown(event)"
-        ontouchend="onUp(event)"
-        ontouchmove="onMove(event)">
-    </canvas>
-
-      <input
-        type="text"
-        id="txt-line"
-        placeholder="Enter your meme text..."
-        oninput="onSetLineTxt(this.value)"
-      />
-      <div class="controls">
-          <div class="edit-controls">
-            <input type="color" title="Text Color" onchange="onSetColor(this.value)" />
-        
-            <button title="Increase Font" onclick="onChangeFontSize(2)">
-              <i class="fas fa-plus"></i>
-            </button>
-            <button title="Decrease Font" onclick="onChangeFontSize(-2)">
-              <i class="fas fa-minus"></i>
-            </button>
-            
-            <button title="Add Line" onclick="onAddLine()">
-              <i class="fas fa-plus-square"></i>
-            </button>
-            <button title="Switch Line" onclick="onSwitchLine()">
-              <i class="fas fa-exchange-alt"></i>
-            </button>
-            <button title="Delete Line" onclick="onDeleteLine()">
-              <i class="fas fa-trash"></i>
-            </button> 
-          </div>
-
-          <div class="stickers">
-            <h4 style="text-align: center;">Add Stickers:</h4>
-            <div class="sticker-list">
-            </div>
-          </div>
-        
-          <div class="align-controls">
-            <button title="Align Left" onclick="onSetAlign('left')">
-              <i class="fas fa-align-left"></i>
-            </button>
-            <button title="Align Center" onclick="onSetAlign('center')">
-              <i class="fas fa-align-center"></i>
-            </button>
-            <button title="Align Right" onclick="onSetAlign('right')">
-              <i class="fas fa-align-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <section class="file-actions">
-          <a
-            href="#"
-            class="btn"
-            onclick="onDownloadCanvas(this)"
-            >Download Meme</a
-          >
-          <button class="btn" onclick="onSaveMeme()">Save Meme</button>
-        </section>
-        
-        
-    </section>
   </main>
+
+  
+  <section class="editor-section editor-saved hidden">
+    <button class="btn back-btn" onclick="onBackToGallery()">← Back to Gallery</button>
+
+    <div class="editor-canvas-side">
+      <canvas id="meme-canvas"></canvas>
+    </div>
+  
+    <div class="editor-controls-side">
+      <input type="text" id="txt-line" placeholder="Enter your meme text..." oninput="onSetLineTxt(this.value)" />
+      
+      <div class="controls">
+        <div class="edit-controls">
+          <input type="color" title="Text Color" onchange="onSetColor(this.value)" />
+  
+          <button title="Increase Font" onclick="onChangeFontSize(2)"><i class="fas fa-plus"></i></button>
+          <button title="Decrease Font" onclick="onChangeFontSize(-2)"><i class="fas fa-minus"></i></button>
+          <button title="Add Line" onclick="onAddLine()"><i class="fas fa-plus-square"></i></button>
+          <button title="Switch Line" onclick="onSwitchLine()"><i class="fas fa-exchange-alt"></i></button>
+          <button title="Delete Line" onclick="onDeleteLine()"><i class="fas fa-trash"></i></button>
+        </div>
+  
+        <div class="stickers">
+          <h4 style="text-align: center;">Add Stickers:</h4>
+          <div class="sticker-list"></div>
+        </div>
+  
+        <div class="align-controls">
+          <button title="Align Left" onclick="onSetAlign('left')"><i class="fas fa-align-left"></i></button>
+          <button title="Align Center" onclick="onSetAlign('center')"><i class="fas fa-align-center"></i></button>
+          <button title="Align Right" onclick="onSetAlign('right')"><i class="fas fa-align-right"></i></button>
+        </div>
+      </div>
+  
+      <section class="file-actions">
+        <a href="#" class="btn" onclick="onDownloadCanvas(this)">Download Meme</a>
+        <button class="btn" onclick="onSaveMeme()">Save Meme</button>
+      </section>
+    </div>
+  </section>
 
 
   <script src="js/service/storage-service.js"></script>
   <script src="js/model/model.js"></script>
   <script src="js/service/canvas-service.js"></script>
   <script src="js/view/view.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/service/util-service.js"></script>
   <script src="js/controller/saved-meme.controller.js"></script>
   <script src="js/controller/controller.js"></script>

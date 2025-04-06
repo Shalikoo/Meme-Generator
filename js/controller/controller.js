@@ -19,17 +19,24 @@ function onImgSelect(imgId) {
         align: 'center',
         pos: { x: gElCanvas.width / 2, y: 50 },
         isDrag: false,
-        rotate: 0
+        rotate: 0,
+        dragOffset: null
       }
     ]
     showEditor()
     renderMeme()
+    hideGallery()
   }
+}
+
+function hideGallery() {
+  document.querySelector('.gallery').classList.add('hidden')
 }
 
 function onBackToGallery() {
   document.querySelector('.gallery-section').classList.remove('hidden')
   document.querySelector('.editor-section').classList.add('hidden')
+  document.querySelector('.gallery').classList.remove('hidden')
 }
 
 function onSetLineTxt(txt) {
@@ -61,7 +68,8 @@ function onAddLine() {
     align: 'center',
     pos: { x: canvasCenterX, y },
     isDrag: false,
-    rotate: 0
+    rotate: 0,
+    dragOffset: null
   }
 
   gMeme.lines.push(newLine)
@@ -95,7 +103,8 @@ function onAddSticker(sticker) {
     align: 'center',
     pos: { x: canvasCenterX, y },
     isDrag: false,
-    rotate: 0
+    rotate: 0,
+    dragOffset: null
   }
 
   gMeme.lines.push(newLine)
@@ -123,7 +132,8 @@ function onDeleteLine() {
       align: 'center',
       pos: { x: gElCanvas.width / 2, y: 50 },
       isDrag: false,
-      rotate: 0
+      rotate: 0,
+      dragOffset: null
     })
     gMeme.selectedLineIdx = 0
   } else {
@@ -145,36 +155,42 @@ function onCanvasClick(ev) {
   document.querySelector("input[type='color']").value = line.color
 }
 
-function onDown(ev) {
+function onPointerDown(ev) {
   const pos = getEvPos(ev)
   const clickedLineIdx = getLineClickedIdx(pos)
   if (clickedLineIdx === -1) return
 
   gMeme.selectedLineIdx = clickedLineIdx
-  gMeme.lines[clickedLineIdx].isDrag = true
-  gLastPos = pos
+  const line = gMeme.lines[clickedLineIdx]
+  line.isDrag = true
+
+  gMeme.dragOffset = {
+    x: pos.x - line.pos.x,
+    y: pos.y - line.pos.y
+  }
+
   document.body.style.cursor = 'grabbing'
 }
 
-function onMove(ev) {
+function onPointerMove(ev) {
   const line = gMeme.lines[gMeme.selectedLineIdx]
-  if (!line.isDrag) return
+  if (!line || !line.isDrag || !gMeme.dragOffset) return
 
   const pos = getEvPos(ev)
-  const dx = pos.x - gLastPos.x
-  const dy = pos.y - gLastPos.y
+  line.pos.x = pos.x - gMeme.dragOffset.x
+  line.pos.y = pos.y - gMeme.dragOffset.y
 
-  line.pos.x += dx
-  line.pos.y += dy
-  gLastPos = pos
   renderMeme()
 }
 
-function onUp() {
+function onPointerUp() {
   const line = gMeme.lines[gMeme.selectedLineIdx]
   if (line) line.isDrag = false
+  gMeme.dragOffset = null
   document.body.style.cursor = 'default'
 }
+
+
 
 function onDownloadCanvas(ev) {
   const dataUrl = gElCanvas.toDataURL()
@@ -184,24 +200,33 @@ function onDownloadCanvas(ev) {
 }
 
 function onSaveMeme() {
+  const selectedIdx = gMeme.selectedLineIdx
+  
+  gMeme.selectedLineIdx = -1
+  renderMeme()
+
+  const dataUrl = gElCanvas.toDataURL()
   const savedMemes = loadFromStorage(STORAGE_KEY) || []
 
   const memeToSave = {
     id: makeId(),
-    imgUrl: gCurrImg.src,
-    previewUrl: gElCanvas.toDataURL(),
+    imgUrl: dataUrl,
+    previewUrl: dataUrl,
     createdAt: Date.now(),
     meme: structuredClone(gMeme),
     cloudUrl: null
   }
 
-  uploadImg(memeToSave.previewUrl, (uploadedImgUrl) => {
+  uploadImg(dataUrl, (uploadedImgUrl) => {
     memeToSave.cloudUrl = uploadedImgUrl
     savedMemes.push(memeToSave)
     saveToStorage(STORAGE_KEY, savedMemes)
-    console.log('Saved meme with preview ✅', memeToSave)
   })
+
+  gMeme.selectedLineIdx = selectedIdx
+  renderMeme()
 }
+
 
 
 
@@ -275,7 +300,8 @@ function onUserUpload(ev) {
           align: 'center',
           pos: { x: gElCanvas.width / 2, y: 50 },
           isDrag: false,
-          rotate: 0
+          rotate: 0,
+          dragOffset: null
         }
       ]
       showEditor()

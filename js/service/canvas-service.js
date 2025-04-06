@@ -8,8 +8,11 @@ var gCurrImg
 var gLastPos = null
 
 function renderMeme() {
+  if (!gCurrImg || !gCurrImg.complete) return
+
   const { width, height } = gElCanvas
   gCtx.clearRect(0, 0, width, height)
+
   gCtx.drawImage(gCurrImg, 0, 0, width, height)
 
   gMeme.lines.forEach((line, idx) => {
@@ -28,13 +31,38 @@ function renderMeme() {
     gCtx.textBaseline = 'middle'
     gCtx.fillText(line.txt, 0, 0)
     gCtx.strokeText(line.txt, 0, 0)
-
     gCtx.restore()
   })
 
-  const currLine = gMeme.lines[gMeme.selectedLineIdx]
-  document.getElementById('txt-line').value = currLine.txt
+  const selectedLine = gMeme.lines[gMeme.selectedLineIdx]
+  if (selectedLine) drawSelectionBox(selectedLine)
 }
+
+function drawSelectionBox(line) {
+  const text = line.txt || 'TEXT'
+  gCtx.font = `${line.size}px Impact`
+  const textMetrics = gCtx.measureText(text)
+  const padding = 10
+
+  const textWidth = textMetrics.width + padding
+  const textHeight = line.size + padding
+
+  gCtx.save()
+  gCtx.translate(line.pos.x, line.pos.y)
+  gCtx.rotate((line.rotate || 0) * Math.PI / 180)
+
+  gCtx.strokeStyle = 'rgba(0, 153, 255, 0.8)'
+  gCtx.lineWidth = 2
+  gCtx.strokeRect(
+    -textWidth / 2,
+    -textHeight / 2,
+    textWidth,
+    textHeight
+  )
+
+  gCtx.restore()
+}
+
 
 function resizeCanvasToImage() {
   if (!gCurrImg) return
