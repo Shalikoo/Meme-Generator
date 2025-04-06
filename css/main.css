@@ -102,6 +102,16 @@ body {
   .controls {
     align-items: center;
   }
+  
+  .upload-center {
+    padding: 3rem 1rem;
+    min-height: auto;
+  }
+
+  .upload-container input[type="file"] {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 
@@ -280,4 +290,22 @@ body {
 
 canvas {
   touch-action: none;
+}
+
+.upload-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh; 
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.upload-container input[type="file"] {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #aaa;
+  cursor: pointer;
 }
