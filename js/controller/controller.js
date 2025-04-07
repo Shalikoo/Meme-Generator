@@ -91,7 +91,6 @@ function onRotateLine(diff) {
   renderMeme()
 }
 
-
 function onAddSticker(sticker) {
   const canvasCenterX = gElCanvas.width / 2
   const y = 100 + gMeme.lines.length * 50
@@ -111,7 +110,6 @@ function onAddSticker(sticker) {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
   renderMeme()
 }
-
 
 function onSetAlign(align) {
   const line = gMeme.lines[gMeme.selectedLineIdx]
@@ -190,8 +188,6 @@ function onPointerUp() {
   document.body.style.cursor = 'default'
 }
 
-
-
 function onDownloadCanvas(ev) {
   const dataUrl = gElCanvas.toDataURL()
 
@@ -201,7 +197,7 @@ function onDownloadCanvas(ev) {
 
 function onSaveMeme() {
   const selectedIdx = gMeme.selectedLineIdx
-  
+
   gMeme.selectedLineIdx = -1
   renderMeme()
 
@@ -227,9 +223,6 @@ function onSaveMeme() {
   renderMeme()
 }
 
-
-
-
 function uploadImg(dataUrl, onSuccess) {
   const formData = new FormData()
   formData.append('file', dataUrl)
@@ -252,8 +245,6 @@ function uploadImg(dataUrl, onSuccess) {
     })
 }
 
-
-
 function onUploadToFB(encodedUrl) {
   const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&t=${encodedUrl}`
   window.open(fbUrl, '_blank')
@@ -265,7 +256,6 @@ function onFilterGallery(keyword) {
   )
   renderGallery(imgs)
 }
-
 
 function onClearFilter() {
   document.getElementById('filter-input').value = ''

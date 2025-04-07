@@ -15,9 +15,9 @@ function renderSavedMemes() {
       <div class="saved-meme-card">
         <img src="${meme.previewUrl}" alt="Saved Meme"/>
         <div class="share-container">
-          <button class="btn" onclick="onUploadToFB('${encodedUrl}')">Share to FB</button>
-          <button class="btn" onclick="onEditMeme(${idx})">Edit</button>
-          <button class="btn" onclick="onShareMeme(${idx})">Share</button>
+          <button class="btn btn-fb" onclick="onUploadToFB('${encodedUrl}')">Share to FB</button>
+          <button class="btn btn-edit" onclick="onEditMeme(${idx})">Edit</button>
+          <button class="btn btn-share" onclick="onShareMeme(${idx})">Share</button>
         </div>
       </div>
     `
@@ -27,24 +27,25 @@ function renderSavedMemes() {
 function onEditMeme(idx) {
   const savedMemes = loadFromStorage(STORAGE_KEY)
   const meme = savedMemes[idx]
-
   gMeme = structuredClone(meme.meme)
 
-  const imgObj = gImgs.find(img => img.id === gMeme.selectedImgId)
-
-  gCurrImg = new Image()
-  gCurrImg.src = imgObj.url
+  showEditor()
 
   gElCanvas = document.getElementById('meme-canvas')
   gCtx = gElCanvas.getContext('2d')
 
+  gCurrImg = new Image()
+
+  const imgObj = getImgById(gMeme.selectedImgId)
+  gCurrImg.src = imgObj ? imgObj.url : meme.imgUrl
+
   gCurrImg.onload = () => {
     resizeCanvasToImage()
-    showEditor()
     renderMeme()
     renderStickers()
   }
 }
+
 
 function onShareMeme(idx) {
   const savedMemes = loadFromStorage(STORAGE_KEY)

@@ -45,7 +45,7 @@
   .controls {
     align-items: center;
   }
-  
+
   .upload-center {
     padding: 3rem 1rem;
     min-height: auto;
@@ -55,6 +55,7 @@
     width: 100%;
     max-width: 300px;
   }
+
   .filter-container #filter-input {
     margin-bottom: 1rem;
   }
@@ -62,19 +63,50 @@
   .filter-container .btn {
     padding: 10px 15px 10px 15px;
   }
+
   .gallery,
   .saved-memes-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
     padding: 1rem;
   }
 
   .gallery img,
   .saved-meme-card img {
     width: 100%;
-    max-width: 100%;
-    height: 180px;
-    object-fit: cover;
+    height: auto;
+  }
+
+  .share-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .share-container .btn {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    font-weight: bold;
     border-radius: 8px;
+    min-width: 100px;
+    text-align: center;
+  }
+
+  .btn-fb {
+    background-color: #4267B2;
+  }
+
+  .btn-edit {
+    background-color: #f36609;
+  }
+
+  .btn-share {
+    background-color: #28a745;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
   }
 }

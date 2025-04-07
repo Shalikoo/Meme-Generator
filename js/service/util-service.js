@@ -14,3 +14,7 @@ function makeId(length = 6) {
     }
     return id;
 }
+
+function getImgById(imgId) {
+    return gImgs.find(img => img.id === imgId)
+}
