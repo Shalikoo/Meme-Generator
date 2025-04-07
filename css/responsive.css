@@ -1,0 +1,80 @@
+/* ========= responsive.css ========= */
+
+@media (max-width: 768px) {
+  .editor-section {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .editor-canvas-side,
+  .editor-controls-side {
+    width: 100%;
+  }
+
+  #txt-line {
+    width: auto;
+  }
+
+  input[type=text]::placeholder {
+    text-align: center;
+  }
+
+  .edit-controls {
+    place-self: center;
+  }
+
+  .sticker-list {
+    place-content: center;
+  }
+
+  .align-controls {
+    place-self: center;
+  }
+
+  .file-actions,
+  .file-actions .btn {
+    place-content: center;
+    font-weight: bold;
+  }
+
+  #meme-canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .controls {
+    align-items: center;
+  }
+  
+  .upload-center {
+    padding: 3rem 1rem;
+    min-height: auto;
+  }
+
+  .upload-container input[type="file"] {
+    width: 100%;
+    max-width: 300px;
+  }
+  .filter-container #filter-input {
+    margin-bottom: 1rem;
+  }
+
+  .filter-container .btn {
+    padding: 10px 15px 10px 15px;
+  }
+  .gallery,
+  .saved-memes-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .gallery img,
+  .saved-meme-card img {
+    width: 100%;
+    max-width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}

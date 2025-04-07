@@ -1,0 +1,33 @@
+/* ========= base.css ========= */
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
+
+canvas {
+  touch-action: none;
+}
+
+.btn {
+  padding: 4px 8px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}

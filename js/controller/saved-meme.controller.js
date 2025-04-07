@@ -76,3 +76,10 @@ function copyToClipboard(text) {
   document.execCommand('copy')
   document.body.removeChild(el)
 }
+
+function onBackToSavedMemes() {
+  document.querySelector('.gallery-section').classList.remove('hidden')
+  document.querySelector('.editor-section').classList.add('hidden')
+  document.querySelector('.gallery').classList.remove('hidden')
+  renderSavedMemes()
+}
